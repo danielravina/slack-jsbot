@@ -1,13 +1,13 @@
-import JSBot from "lib/JSBot";
+import JSBotParser from "lib/JSBotParser";
 import Chai  from 'chai';
 
 var expect = Chai.expect;
 
-describe("JSBot internal processing", () =>  {
+describe("JSBot Parser", () =>  {
   let jsbot; // define bot
 
   before(() => {
-    jsbot = JSBot(); // initialize Bot
+    jsbot = JSBotParser(); // initialize Bot
   })
 
   it("reports a missing semicolon", () => {
@@ -25,10 +25,10 @@ describe("JSBot internal processing", () =>  {
     let jsString = 'function goo(){';
     jsbot.process(jsString)
     let error = jsbot.getIssues().errors[0];
-
     expect(error.reason).to.contain("Unmatched");
     expect(error.line).to.equal(1);
-    expect(error.character).to.equal(15);
+
+    expect(error.character).to.equal(16);
   })
 
   it("reports unused variables", () => {
@@ -42,11 +42,7 @@ describe("JSBot internal processing", () =>  {
   })
 
   it("reports multiple issues", () => {
-    let jsString =
-      "function goo() {" +
-        "foo = 3\n" +
-        "p.start()" +
-      "}";
+    let jsString = "function goo() { foo = 3\n p.start() }";
     jsbot.process(jsString);
 
     // errors:

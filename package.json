@@ -10,6 +10,7 @@
     "babel": "^5.8.23",
     "body-parser": "~1.12.4",
     "express": "~4.12.4",
+    "js-beautify": "^1.5.10",
     "jshint": "^2.8.0"
   },
   "devDependencies": {
